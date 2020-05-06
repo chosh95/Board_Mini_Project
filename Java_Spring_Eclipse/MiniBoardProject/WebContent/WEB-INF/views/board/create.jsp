@@ -22,7 +22,7 @@
                 <div class="col-sm-9">
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="board_read.html" method="post">
+                            <form action="board_read.html" method="post" enctype="multipart/form-data"">
                             <div class="form-group">
                                 <label for="board_subject">제목</label>
                                 <input type="text" id="board_subject" name="board_subject" class="form-control"/>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="board_file">첨부 이미지</label>
-                                <input type="file" id="board_file" name="board_file" class="form-control" accept="image/*"/>
+                                <input type="file" id="board_file" name="board_file" class="form-control" accept="image/*" multiple/>
                             </div>
                             <div class="form-group">
                                 <div class="text-right">
