@@ -1,12 +1,34 @@
 package kr.co.choboard.beans;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class UserBean {
 
 	private int user_idx;
+	
+	@Size(min=2, max=4)
+	@Pattern(regexp="[가-힣]*")
 	private String user_name;
+	
+	@Size(min=4,max=20)
+	@Pattern(regexp="[a-zA-z0-9]*")
 	private String user_id;
+	
+	@Size(min=4,max=20)
+	@Pattern(regexp="[a-zA-z0-9]*")
 	private String user_pw;
+	
+	@Size(min=4,max=20)
+	@Pattern(regexp="[a-zA-z0-9]*")
+	private String user_pw2;
+	
+	@Size(min=6,max=30)
+	@Pattern(regexp="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
 	private String user_email;
+	
+	@Size(min=2,max=5)
+	@Pattern(regexp="[0-9a-zA-Z가-힣]*")
 	private String user_nickname;
 	
 	public int getUser_idx() {
@@ -32,6 +54,12 @@ public class UserBean {
 	}
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
+	}
+	public String getUser_pw2() {
+		return user_pw2;
+	}
+	public void setUser_pw2(String user_pw2) {
+		this.user_pw2 = user_pw2;
 	}
 	public String getUser_email() {
 		return user_email;
