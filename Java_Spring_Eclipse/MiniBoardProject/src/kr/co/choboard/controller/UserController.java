@@ -54,4 +54,6 @@ public class UserController {
 		UserValidator validator1 = new UserValidator();
 		binder.addValidators(validator1);
 	}
+	
+	
 }

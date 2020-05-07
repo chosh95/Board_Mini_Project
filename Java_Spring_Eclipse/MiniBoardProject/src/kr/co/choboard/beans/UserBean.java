@@ -31,6 +31,20 @@ public class UserBean {
 	@Pattern(regexp="[0-9a-zA-Z가-힣]*")
 	private String user_nickname;
 	
+	private boolean userIdExist;
+	
+	public UserBean() {
+		this.userIdExist = false;
+	}
+	
+	public boolean isUserIdExist() {
+		return userIdExist;
+	}
+
+	public void setUserIdExist(boolean userIdExist) {
+		this.userIdExist = userIdExist;
+	}
+
 	public int getUser_idx() {
 		return user_idx;
 	}
