@@ -64,7 +64,6 @@ public class UserController {
 		if(result.hasErrors()) {
 			return "user/update";
 		}
-		System.out.println("------------");
 		userService.updateUserInfo(updateUserBean);
 		
 		return "user/update_success";
