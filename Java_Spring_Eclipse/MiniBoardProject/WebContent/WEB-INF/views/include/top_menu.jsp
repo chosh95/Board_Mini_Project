@@ -18,14 +18,24 @@
 		</ul>
 
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item"><a href="${root}user/login" class="nav-link">로그인</a>
-			</li>
-			<li class="nav-item"><a href="${root}user/signIn"
-				class="nav-link">회원가입</a></li>
-			<li class="nav-item"><a href="${root}user/update"
-				class="nav-link">회원수정</a></li>
-			<li class="nav-item"><a href="${root}user/logout" class="nav-link">로그아웃</a>
-			</li>
+			<c:choose>
+				<c:when test="${loginUserBean.isLogin() == true}">
+					<li class="nav-item">
+						<a href="${root}user/update" class="nav-link">회원수정</a>
+					</li>
+					<li class="nav-item">
+						<a href="${root}user/logout" class="nav-link">로그아웃</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item">
+						<a href="${root}user/login" class="nav-link">로그인</a>
+					</li>
+					<li class="nav-item">
+						<a href="${root}user/signIn"class="nav-link">회원가입</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	</div>
 </nav>

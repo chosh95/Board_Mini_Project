@@ -39,11 +39,36 @@
 			}
 		})
 	}
-	
+	function checkNicknameExist(){
+		
+		var user_nickname = $("#user_nickname").val()
+		
+		if(user_nickname.length == 0 ){
+			alert('아이디를 입력해주세요')
+			return
+		}
+		$.ajax({
+			url : '${root}user/checkNicknameExist/' + user_nickname,
+			type : 'get',
+			dataType : 'text',
+			success : function(result){
+				if(result.trim()=='true'){
+					alert('사용할 수 있는 아이디입니다.')
+					$("#nicknameExist").val('true')
+				}
+				else{
+					alert('사용할 수 없는 아이디입니다.')
+					$("#nicknameExist").val('false')
+				}
+			}
+		})
+	}
 	function resetUserIdExist(){
 		$("#userIdExist").val('false')
 	}
-	
+	function resetNicknameExist(){
+		$("#nicknameExist").val('false')
+	}
 	</script>
     <body>
         <c:import url="/WEB-INF/views/include/top_menu.jsp"/>
@@ -56,6 +81,7 @@
                         <div class="card-body">
                         	<form:form action="${root }user/signIn_pro" method="post" modelAttribute="signInUserBean">
                         		<form:hidden path="userIdExist"/>
+                        		<form:hidden path="nicknameExist"/>
                                 <div class="form-group">
                                 	<form:label path="user_name">이름</form:label>
                                 	<form:input path="user_name" class="form-control"/>
@@ -79,9 +105,9 @@
                                 <div class="form-group">
                                 	<form:label path="user_nickname">닉네임</form:label>
                                     <div class="input-group">
-                                        <form:input path="user_nickname" class="form-control"/>
+                                        <form:input path="user_nickname" class="form-control" onkeypress="resetNicknameExist()"/>
                                         <div class="input-group-append">
-                                            <button type = "button" class="btn btn-dark">중복확인</button>
+                                            <button type = "button" class="btn btn-dark" onclick="checkNicknameExist()">중복확인</button>
                                         </div>
                                     </div>
                                     <form:errors path="user_nickname" style='color:red'/>

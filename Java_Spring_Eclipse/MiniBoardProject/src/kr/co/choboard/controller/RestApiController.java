@@ -19,4 +19,10 @@ public class RestApiController {
 		
 		return chk + "";
 	}
+	
+	@GetMapping("/user/checkNicknameExist/{user_nickname}")
+	public String checkNicknameExist(@PathVariable String user_nickname) {
+		boolean chk = userService.checkNicknameExist(user_nickname);
+		return chk + "";
+	}
 }

@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 
 import kr.co.choboard.beans.UserBean;
 
-public class UserValidator implements Validator{
+public class UserValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -14,14 +14,26 @@ public class UserValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		UserBean userBean = (UserBean)target;
-		if(userBean.getUser_pw().contentEquals(userBean.getUser_pw2())== false) {
-			errors.rejectValue("user_pw", "NotEquals");
-			errors.rejectValue("user_pw2", "NotEquals");
+		UserBean userBean = (UserBean) target;
+
+		String beanName = errors.getObjectName();
+		
+		if (beanName.equals("signInUserBean") || beanName.equals("updateUserBean")) {
+			if (userBean.getUser_pw().contentEquals(userBean.getUser_pw2()) == false) {
+				errors.rejectValue("user_pw", "NotEquals");
+				errors.rejectValue("user_pw2", "NotEquals");
+			}
+
+			if (userBean.isNicknameExist() == false) {
+				errors.rejectValue("user_nickname", "NicknameExist");
+			}
 		}
 		
-		if(userBean.isUserIdExist() == false) {
-			errors.rejectValue("user_id", "UserIdExist");
+		if(beanName.equals("signInUserBean")) {
+			if (userBean.isUserIdExist() == false) {
+				errors.rejectValue("user_id", "UserIdExist");
+			}
 		}
+			
 	}
 }

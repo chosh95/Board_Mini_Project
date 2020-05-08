@@ -32,11 +32,31 @@ public class UserBean {
 	private String user_nickname;
 	
 	private boolean userIdExist;
+	private boolean nicknameExist;
+	private boolean isLogin;
 	
 	public UserBean() {
 		this.userIdExist = false;
+		this.nicknameExist = false;
+		this.isLogin = false;
 	}
 	
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+	public boolean isNicknameExist() {
+		return nicknameExist;
+	}
+
+	public void setNicknameExist(boolean nicknameExist) {
+		this.nicknameExist = nicknameExist;
+	}
+
 	public boolean isUserIdExist() {
 		return userIdExist;
 	}

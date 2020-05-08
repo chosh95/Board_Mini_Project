@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import kr.co.choboard.beans.BoardInfoBean;
+import kr.co.choboard.beans.UserBean;
 import kr.co.choboard.service.TopMenuService;
 
 public class TopMenuInterceptor implements HandlerInterceptor{
 
 	private TopMenuService topMenuService;
-
-	public TopMenuInterceptor(TopMenuService topMenuService) {
+	private UserBean loginUserBean;
+	
+	public TopMenuInterceptor(TopMenuService topMenuService, UserBean loginUserBean) {
 		this.topMenuService = topMenuService;
+		this.loginUserBean = loginUserBean;
 	}
 	
 	@Override
@@ -23,7 +26,7 @@ public class TopMenuInterceptor implements HandlerInterceptor{
 			throws Exception {
 		List<BoardInfoBean> list = topMenuService.getTopMenuList();
 		request.setAttribute("topMenuList", list);
-		
+		request.setAttribute("loginUserBean", loginUserBean);
 		return true;
 	}
 }
