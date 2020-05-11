@@ -24,27 +24,29 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="board_writer_nickname">작성자</label>
-                                <input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="홍길동" disabled="disabled"/>
+                                <input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="${contentBean.content_writer_name }" disabled="disabled"/>
                             </div>
                             <div class="form-group">
                                 <label for="board_date">작성날짜</label>
-                                <input type="text" id="board_date" name="board_date" class="form-control" value="2018-7-20" disabled="disabled"/>
+                                <input type="text" id="board_date" name="board_date" class="form-control" value="${contentBean.content_date }" disabled="disabled"/>
                             </div>
                             <div class="form-group">
                                 <label for="board_subject">제목</label>
-                                <input type="text" id="board_subject" name="board_subject" class="form-control" value="제목입니다" disabled="disabled"/>
+                                <input type="text" id="board_subject" name="board_subject" class="form-control" value="${contentBean.content_subject }" disabled="disabled"/>
                             </div>
                             <div class="form-group">
                                 <label for="board_content">내용</label>
-                                <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none" disabled="disabled">본문입니다</textarea>
+                                <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none" disabled="disabled">${contentBean.content_text }</textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="board_file">첨부 이미지</label>
-                                <img src="#" width="100%"/>						
-                            </div>
+                            <c:if test="${contentBean.content_file != null }">
+	                            <div class="form-group">
+	                                <label for="board_file">첨부 이미지</label>
+	                                <img src="${root }upload/${contentBean.content_file}" width="100%"/>						
+	                            </div>
+                            </c:if>
                             <div class="form-group">
                                 <div class="text-right">
-                                    <a href="${root }board/main" class="btn btn-primary">목록보기</a>
+                                    <a href="${root }board/main?board_info_idx=${board_info_idx}" class="btn btn-primary">목록보기</a>
                                     <a href="${root }board/update" class="btn btn-info">수정하기</a>
                                     <a href="${root }board/delete" class="btn btn-danger">삭제하기</a>
                                 </div>

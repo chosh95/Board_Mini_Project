@@ -1,6 +1,7 @@
 package kr.co.choboard.service;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -46,5 +47,17 @@ public class BoardService {
 		createContentBean.setContent_writer_idx(loginUserBean.getUser_idx());
 		
 		boardDao.addContentInfo(createContentBean);
+	}
+	
+	public String getBoardName(int board_info_idx) {
+		return boardDao.getBoardName(board_info_idx);
+	}
+	
+	public List<ContentBean> getContentList(int board_info_idx){
+		return boardDao.getContentList(board_info_idx);
+	}
+	
+	public ContentBean getContent(int content_idx) {
+		return boardDao.getContent(content_idx);
 	}
 }

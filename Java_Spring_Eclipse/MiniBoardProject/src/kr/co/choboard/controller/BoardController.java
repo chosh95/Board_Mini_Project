@@ -1,5 +1,7 @@
 package kr.co.choboard.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,26 @@ public class BoardController {
 	@GetMapping("/board/main")
 	public String main(@RequestParam("board_info_idx") int board_info_idx, Model model) {
 		model.addAttribute("board_info_idx",board_info_idx);
+		
+		String board_info_name = boardService.getBoardName(board_info_idx);
+		model.addAttribute("board_info_name",board_info_name);
+		
+		List<ContentBean> list = boardService.getContentList(board_info_idx);
+		model.addAttribute("contentList", list);
+		
 		return "board/main";
 	}
 	
 	@GetMapping("/board/read")
-	public String read() {
+	public String read(@RequestParam("board_info_idx") int board_info_idx,
+						@RequestParam("content_idx") int content_idx,
+						Model model) {
+		
+		model.addAttribute("board_info_idx", board_info_idx);
+		
+		ContentBean contentBean = boardService.getContent(content_idx);
+		model.addAttribute("contentBean",contentBean);
+		
 		return "board/read";
 	}
 	

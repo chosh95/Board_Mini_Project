@@ -1,5 +1,7 @@
 package kr.co.choboard.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +18,15 @@ public class BoardDao {
 		boardMapper.addContentInfo(createContentBean);
 	}
 
+	public String getBoardName(int board_info_idx) {
+		return boardMapper.getBoardName(board_info_idx);
+	}
+	
+	public List<ContentBean> getContentList(int board_info_idx){
+		return boardMapper.getContentList(board_info_idx);
+	}
+	
+	public ContentBean getContent(int content_idx) {
+		return boardMapper.getContent(content_idx);
+	}
 }
