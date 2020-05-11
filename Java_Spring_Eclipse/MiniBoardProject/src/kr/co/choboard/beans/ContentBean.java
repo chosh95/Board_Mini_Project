@@ -1,15 +1,29 @@
 package kr.co.choboard.beans;
 
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class ContentBean {
+	
 	private int content_idx;
+	
+	@NotBlank
 	private String content_subject;
+	
+	@NotBlank
 	private String content_text;
+	
+	//파일.
+	private MultipartFile upload_file;
+	
+	//파일 이름
 	private String content_file;
-	private String content_file2;
-	private String content_file3;
+	
 	private int content_writer_idx;
 	private int content_board_idx;
 	private String content_date;
+	private String content_writer_name;
 	
 	public int getContent_idx() {
 		return content_idx;
@@ -35,18 +49,6 @@ public class ContentBean {
 	public void setContent_file(String content_file) {
 		this.content_file = content_file;
 	}
-	public String getContent_file2() {
-		return content_file2;
-	}
-	public void setContent_file2(String content_file2) {
-		this.content_file2 = content_file2;
-	}
-	public String getContent_file3() {
-		return content_file3;
-	}
-	public void setContent_file3(String content_file3) {
-		this.content_file3 = content_file3;
-	}
 	public int getContent_writer_idx() {
 		return content_writer_idx;
 	}
@@ -65,6 +67,16 @@ public class ContentBean {
 	public void setContent_date(String content_date) {
 		this.content_date = content_date;
 	}
-	
-	
+	public MultipartFile getUpload_file() {
+		return upload_file;
+	}
+	public void setUpload_file(MultipartFile upload_file) {
+		this.upload_file = upload_file;
+	}
+	public String getContent_writer_name() {
+		return content_writer_name;
+	}
+	public void setContent_writer_name(String content_writer_name) {
+		this.content_writer_name = content_writer_name;
+	}
 }

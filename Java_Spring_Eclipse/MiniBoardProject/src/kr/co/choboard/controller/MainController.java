@@ -1,11 +1,9 @@
 package kr.co.choboard.controller;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import kr.co.choboard.beans.UserBean;
 
 @Controller
 public class MainController {
@@ -16,7 +14,8 @@ public class MainController {
 	}
 	
 	@GetMapping("/main")
-	public String main() {
+	public String main(HttpServletRequest request) {
+//		System.out.println(request.getServletContext().getRealPath("/"));
 		return "main";
 	}
 }

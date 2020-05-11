@@ -156,7 +156,7 @@
                     </div>
                     
                     <div class="text-right">
-                        <a href="${root }board/create" class="btn btn-primary">글쓰기</a>
+                        <a href="${root }board/create?board_info_idx=${board_info_idx}" class="btn btn-primary">글쓰기</a>
                     </div>
                     
                 </div>
