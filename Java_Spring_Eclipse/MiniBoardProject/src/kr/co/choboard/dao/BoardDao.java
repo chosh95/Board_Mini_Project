@@ -29,4 +29,8 @@ public class BoardDao {
 	public ContentBean getContent(int content_idx) {
 		return boardMapper.getContent(content_idx);
 	}
+	
+	public void updateContent(ContentBean updateContentBean) {
+		boardMapper.updateContent(updateContentBean);
+	}
 }

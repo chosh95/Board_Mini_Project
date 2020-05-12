@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import kr.co.choboard.beans.ContentBean;
 
@@ -32,9 +33,16 @@ public interface BoardMapper {
 	
 	@Select("select U.user_nickname as content_writer_name, " +
 			"	to_char(C.content_date, 'YYYY-MM-DD') as content_date, " + 
-			"	C.content_subject, C.content_text, C.content_file " + 
+			"	C.content_subject, C.content_text, C.content_file, C.content_writer_idx " + 
 			"from content_table C, user_table U " + 
 			"where C.content_writer_idx = U.user_idx " + 
 			"	and C.content_idx = #{content_idx}")
 	ContentBean getContent(int content_idx);
+	
+	@Update("update content_table " + 
+			"set content_subject=#{content_subject}, content_text=#{content_text}, " +
+			"content_file=#{content_file,jdbcType=VARCHAR} " + 
+			"where content_idx=#{content_idx}")
+	void updateContent(ContentBean updateContentBean);
+	
 }

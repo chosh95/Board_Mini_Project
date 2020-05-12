@@ -60,4 +60,15 @@ public class BoardService {
 	public ContentBean getContent(int content_idx) {
 		return boardDao.getContent(content_idx);
 	}
+	
+	public void updateContent(ContentBean updateContentBean) {
+		
+		MultipartFile upload_file = updateContentBean.getUpload_file();
+		if(upload_file.getSize()>0) {
+			String file_name = saveUploadFile(upload_file);
+			updateContentBean.setContent_file(file_name);
+		}
+		
+		boardDao.updateContent(updateContentBean);
+	}
 }

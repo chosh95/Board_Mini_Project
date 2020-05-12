@@ -2,6 +2,7 @@ package kr.co.choboard.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.choboard.beans.ContentBean;
+import kr.co.choboard.beans.UserBean;
 import kr.co.choboard.service.BoardService;
 
 @Controller
@@ -21,6 +23,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Resource(name="loginUserBean")
+	private UserBean loginUserBean;
 	
 	@GetMapping("/board/main")
 	public String main(@RequestParam("board_info_idx") int board_info_idx, Model model) {
@@ -41,11 +46,19 @@ public class BoardController {
 						Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);
 		
 		ContentBean contentBean = boardService.getContent(content_idx);
 		model.addAttribute("contentBean",contentBean);
 		
+		model.addAttribute("loginUserBean",loginUserBean);
+		
 		return "board/read";
+	}
+	
+	@GetMapping("/board/not_writer")
+	public String not_writer() {
+		return "board/not_writer";
 	}
 	
 	@GetMapping("/board/create")
@@ -67,8 +80,36 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/update")
-	public String update() {
+	public String update(@RequestParam("board_info_idx") int board_info_idx,
+						 @RequestParam("content_idx") int content_idx,
+						 @ModelAttribute("updateContentBean") ContentBean updateContentBean,
+						 Model model) {
+		
+		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);
+		
+		ContentBean tempContentBean = boardService.getContent(content_idx);
+		updateContentBean.setContent_writer_name(tempContentBean.getContent_writer_name());
+		updateContentBean.setContent_date(tempContentBean.getContent_date());
+		updateContentBean.setContent_subject(tempContentBean.getContent_subject());
+		updateContentBean.setContent_text(tempContentBean.getContent_text());
+		updateContentBean.setContent_file(tempContentBean.getContent_file());
+		updateContentBean.setContent_writer_idx(tempContentBean.getContent_writer_idx());
+		updateContentBean.setContent_idx(content_idx);
+		updateContentBean.setContent_board_idx(board_info_idx);
+		
 		return "board/update";
+	}
+	
+	@PostMapping("/board/update_pro")
+	public String update_pro(@Valid @ModelAttribute("updateContentBean") ContentBean updateContentBean, BindingResult result) {
+		if(result.hasErrors()) {
+			return "board/update";
+		}
+		
+		boardService.updateContent(updateContentBean);
+		
+		return "board/update_success";
 	}
 	
 	@GetMapping("/board/delete")
