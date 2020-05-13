@@ -2,10 +2,12 @@ package kr.co.choboard.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import kr.co.choboard.beans.ContentBean;
 
@@ -29,7 +31,7 @@ public interface BoardMapper {
 			"from content_table C, user_table U " + 
 			"where C.content_writer_idx = U.user_idx and C.content_board_idx = #{board_info_idx} " + 
 			"order by C.content_idx desc")
-	List<ContentBean> getContentList(int board_info_idx);
+	List<ContentBean> getContentList(int board_info_idx, RowBounds rowBounds);
 	
 	@Select("select U.user_nickname as content_writer_name, " +
 			"	to_char(C.content_date, 'YYYY-MM-DD') as content_date, " + 
@@ -45,4 +47,12 @@ public interface BoardMapper {
 			"where content_idx=#{content_idx}")
 	void updateContent(ContentBean updateContentBean);
 	
+	@Delete("delete from content_table " + 
+			"where content_idx=#{content_idx}")
+	void deleteContent(int content_idx);
+	
+	@Select("select count(*) " + 
+			"from content_table " + 
+			"where content_board_idx=${content_board_idx}")
+	int getContentCnt(int content_board_idx);
 }

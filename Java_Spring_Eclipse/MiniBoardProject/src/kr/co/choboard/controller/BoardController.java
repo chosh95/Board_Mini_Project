@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.choboard.beans.ContentBean;
+import kr.co.choboard.beans.PageBean;
 import kr.co.choboard.beans.UserBean;
 import kr.co.choboard.service.BoardService;
 
@@ -28,14 +29,19 @@ public class BoardController {
 	private UserBean loginUserBean;
 	
 	@GetMapping("/board/main")
-	public String main(@RequestParam("board_info_idx") int board_info_idx, Model model) {
+	public String main(@RequestParam("board_info_idx") int board_info_idx, 
+						@RequestParam(value="page", defaultValue="1") int page,
+						Model model) {
 		model.addAttribute("board_info_idx",board_info_idx);
 		
 		String board_info_name = boardService.getBoardName(board_info_idx);
 		model.addAttribute("board_info_name",board_info_name);
 		
-		List<ContentBean> list = boardService.getContentList(board_info_idx);
+		List<ContentBean> list = boardService.getContentList(board_info_idx, page);
 		model.addAttribute("contentList", list);
+		
+		PageBean pageBean = boardService.getContentCnt(board_info_idx, page);
+		model.addAttribute("pageBean", pageBean);
 		
 		return "board/main";
 	}
@@ -113,7 +119,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/delete")
-	public String delete() {
+	public String delete(@RequestParam("board_info_idx") int board_info_idx,
+						 @RequestParam("content_idx") int content_idx,
+						 Model model) {
+		
+		boardService.deleteContent(content_idx);
+		
+		model.addAttribute("board_info_idx", board_info_idx);
 		return "board/delete";
 	}
 	
