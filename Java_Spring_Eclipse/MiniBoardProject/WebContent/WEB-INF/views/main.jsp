@@ -20,10 +20,11 @@
 	<!-- 게시판 Contents -->
 	<div class="container" style="margin-top: 50px">
 		<div class="row">
+			<c:forEach var='sub_list' items="${list }" varStatus="idx">
 			<div class="col-lg-11" style="margin-top: 20px">
 				<div class="card shadow">
 					<div class="card-body">
-						<h4 class="card-title">자유게시판</h4>
+						<h4 class="card-title">${board_list[idx.index].board_info_name }</h4>
 						<table class="table table-hover" id='board_list'>
 							<thead>
 								<tr>
@@ -34,94 +35,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='${root }board/read'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
+								<c:forEach var='obj' items="${sub_list }">
+									<tr>
+										<td class="text-center">${obj.content_idx }</td>
+										<th><a href='${root }board/main?board_info_idx=${board_list[idx.index].board_info_idx}&content_idx=${obj.content_idx}&page=1'>${obj.content_subject }</a></th>
+										<td class="text-center">${obj.content_writer_name }</td>
+										<td class="text-center">${obj.content_date }</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
-						<a href="board_main.html" class="btn btn-info">더보기</a>
+						<a href="${root }board/main?board_info_idx=${board_list[idx.index].board_info_idx}" class="btn btn-info">더보기</a>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-11" style="margin-top: 20px">
-				<div class="card shadow">
-					<div class="card-body">
-						<h4 class="card-title">자유게시판</h4>
-						<table class="table table-hover" id='board_list'>
-							<thead>
-								<tr>
-									<th class="text-center w-25">글번호</th>
-									<th>제목</th>
-									<th class="text-center w-25">작성자</th>
-									<th class="text-center w-25">작성날짜</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-								<tr>
-									<td class="text-center">5</td>
-									<th><a href='board_read.html'>제목입니다</a></th>
-									<td class="text-center">작성자</td>
-									<td class="text-center">2018-12-12</td>
-								</tr>
-							</tbody>
-						</table>
-						<a href="board_main.html" class="btn btn-info">더보기</a>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 	

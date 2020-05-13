@@ -43,12 +43,15 @@ public class BoardController {
 		PageBean pageBean = boardService.getContentCnt(board_info_idx, page);
 		model.addAttribute("pageBean", pageBean);
 		
+		model.addAttribute("page", page);
+		
 		return "board/main";
 	}
 	
 	@GetMapping("/board/read")
 	public String read(@RequestParam("board_info_idx") int board_info_idx,
 						@RequestParam("content_idx") int content_idx,
+						@RequestParam("page") int page, 
 						Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
@@ -58,6 +61,7 @@ public class BoardController {
 		model.addAttribute("contentBean",contentBean);
 		
 		model.addAttribute("loginUserBean",loginUserBean);
+		model.addAttribute("page", page);
 		
 		return "board/read";
 	}
@@ -89,10 +93,12 @@ public class BoardController {
 	public String update(@RequestParam("board_info_idx") int board_info_idx,
 						 @RequestParam("content_idx") int content_idx,
 						 @ModelAttribute("updateContentBean") ContentBean updateContentBean,
+						 @RequestParam("page") int page,
 						 Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
+		model.addAttribute("page", page);
 		
 		ContentBean tempContentBean = boardService.getContent(content_idx);
 		updateContentBean.setContent_writer_name(tempContentBean.getContent_writer_name());
@@ -108,7 +114,11 @@ public class BoardController {
 	}
 	
 	@PostMapping("/board/update_pro")
-	public String update_pro(@Valid @ModelAttribute("updateContentBean") ContentBean updateContentBean, BindingResult result) {
+	public String update_pro(@Valid @ModelAttribute("updateContentBean") ContentBean updateContentBean, BindingResult result,
+							@RequestParam("page") int page, Model model) {
+		
+		model.addAttribute("page", page);
+		
 		if(result.hasErrors()) {
 			return "board/update";
 		}
