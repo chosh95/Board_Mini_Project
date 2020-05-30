@@ -22,6 +22,7 @@ public class MainController {
 	@Autowired
 	private TopMenuService topMenuService;
 	
+	
 	@GetMapping("/")
 	public String index() {
 		return "redirect:/main";
