@@ -21,7 +21,6 @@ import kr.co.choboard.validator.UserValidator;
 @Controller
 public class UserController {
 
-	
 	@Autowired
 	private UserService userService;
 	

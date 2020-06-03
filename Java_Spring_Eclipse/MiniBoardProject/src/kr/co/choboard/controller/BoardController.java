@@ -109,7 +109,6 @@ public class BoardController {
 		updateContentBean.setContent_writer_idx(tempContentBean.getContent_writer_idx());
 		updateContentBean.setContent_idx(content_idx);
 		updateContentBean.setContent_board_idx(board_info_idx);
-		
 		return "board/update";
 	}
 	
@@ -122,9 +121,7 @@ public class BoardController {
 		if(result.hasErrors()) {
 			return "board/update";
 		}
-		
 		boardService.updateContent(updateContentBean);
-		
 		return "board/update_success";
 	}
 	
